@@ -4,7 +4,15 @@ typedef struct Node{
     int data;
     struct Node *next;
 }Node;
+Node *concatList(Node *list_01, Node *list_02){
+    Node *tmp;
+    tmp = list_01->next;
+    list_01->next = list_02->next;
+    list_02->next = tmp;
 
+    return tmp;
+}
+ 
 int main(){
     // bt: cho 2 ds lien ket list_01 va list_02
     // gs moi ds co 3 phan tu
@@ -35,15 +43,15 @@ int main(){
     g->next = e;
 
     // coi chi su dung c, g->
-    Node *tmp;
-    tmp = c->next;
-    c->next = g->next;
-    g->next = tmp;
-
+    // Node *tmp;
+    // tmp = c->next;
+    // c->next = g->next;
+    // g->next = tmp;
+    Node *head = concatList(c, g);
     Node *cur;
-    for(cur = tmp; cur != NULL; cur = cur->next){
+    for(cur = head; cur != NULL; cur = cur->next){
         printf("%d ", cur->data);
-        if(cur->next == tmp){
+        if(cur->next == head){
             break;
         }
     }
