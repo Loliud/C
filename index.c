@@ -14,20 +14,19 @@ void addNode(Node *root, int value){
         }
     }
 }
-void addNodeHead(Node *root, int value){
+Node *addNodeHead(Node *root, int value){
     Node *new_Node = malloc(sizeof(Node));
-    Node *head = root;
-    head->next = NULL;
     new_Node->data = value;
-    new_Node->next = head;
-    root = new_Node;
+    new_Node->next = root;
+    root->next = NULL;
+    return new_Node;
 }
 int main(){
 
     Node *head = (Node *)malloc(sizeof(Node));
     head->data = 10;
     head->next = NULL;
-    addNodeHead(head, 200);
+    head = addNodeHead(head, 200);
 
     for(Node *cur = head; cur != NULL; cur = cur->next){
         printf("%d ", cur->data);
