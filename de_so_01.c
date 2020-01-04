@@ -80,6 +80,44 @@ Node *search(Node *root, char *username, char *password){
 
     return search(root->left, username, password); 
 }
+
+Node * minValueNode(Node *node) 
+{ 
+    Node *minNode = node; 
+    while (minNode && minNode->left != NULL){
+        minNode = minNode->left; 
+    }
+    return minNode; 
+}
+
+Node *deleteNode(Node *root, char *username){
+    if (root == NULL) return root; 
+
+    if (strcmp(username, root->data.username) < 0){
+        root->left = deleteNode(root->left, username); 
+    } 
+    else if (strcmp(username, root->data.username) > 0) 
+        root->right = deleteNode(root->right, username); 
+    else
+    { 
+        if (root->left == NULL) 
+        { 
+            Node *temp = root->right; 
+            free(root); 
+            return temp; 
+        } 
+        else if (root->right == NULL) 
+        { 
+            Node *temp = root->left; 
+            free(root); 
+            return temp; 
+        } 
+        Node *temp = minValueNode(root->right); 
+        root->data = temp->data; 
+        root->right = deleteNode(root->right, temp->data.username); 
+    } 
+    return root; 
+}
 void menuBegin(){
     printf("1. Dang nhap\n");
     printf("2. Thaot\n");
@@ -99,7 +137,6 @@ int main(){
     Node *root = NULL;
     SV sv;
     root = inputFromFile(root, "./data.txt");
-    printList(root);
     int select;
     
     while(68){
@@ -142,6 +179,13 @@ int main(){
                             case 2:
                                 printList(root);
                                 break;
+                            case 3:
+                                __fpurge(stdin);
+                                printf("Nhap username muon xoa: ");
+                                gets(sv.username);
+                                __fpurge(stdin);
+                                root = deleteNode(root, sv.username);
+                                break;
                             case 4:
                                 writeFile(root, "./data.txt");
                                 status = 1;
@@ -160,7 +204,7 @@ int main(){
                         scanf("%d", &select);
                         switch(select){
                             case 1:
-                                printf("Diem cua sinh vien: %f", node->data.point);
+                                printf("Diem cua sinh vien: %f\n", node->data.point);
                                 break;
                             case 2:
                                 printf("Nhap mk moi: ");
