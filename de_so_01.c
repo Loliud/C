@@ -282,8 +282,11 @@ int main(){
                                 status = 1;
                                 break;
                         }
+                        // khi status == 1 tức đã thao tác xong ở sinhvien hoặc admin 
                         if(status == 1){
+                            // gán count == 4 để tý dùng thoát ra menu ban đầu
                             count = 4;
+                            // break để thoát khỏi sv và admin
                             break;
                         }
                         
@@ -293,14 +296,14 @@ int main(){
                 printf("Sai , hay nhap lai\n");
                 count += 1;
             }
-            if(count == 3){
+            if(count == 3){ // thoat khỏi chương trình khi nhập sai 3 lần
                 return 0;
             }
-            if(count == 4){
+            if(count == 4){ // thoat khỏi admin hoạc sinh viên quay về menu đầu tiên
                 break;
             }
             }
-        }else if(select == 2){
+        }else if(select == 2){ // thoát chương trình
             return 0;
         }
     }
