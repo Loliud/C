@@ -189,8 +189,28 @@ void showMenu(){
     printf("Chon 1. Nap tu dien\n");
     printf("Chon 2. In tu dien\n");
     printf("Chon 3. Them/ sua tu dien\n");
-    printf("Chon 4. Thoat chuong trinh\n");
+    printf("Chon 4. Dich cau anh viet\n");
     printf("Chon 5. Giai phong cay\n");
+}
+void tachCau(){
+    int index = 0;
+    int i;
+    char *a = (char *)malloc(2000*sizeof(char));
+    char **b = (char **)malloc(2000*sizeof(char));;
+    printf ("Nhap vao cau tieng anh: ");
+    fflush(stdin);
+    gets(a);
+
+    char *p;
+    p = strtok(a, ",. "); //cat chuoi bang cac ky tu ,. va space
+    while(p != NULL)
+    {
+            b[index] = p;
+            index++;
+            p = strtok(NULL, ",. "); //cat chuoi tu vi tri dung lai truoc do
+    }
+    for (i = 0; i < index; i++) //in ra cac tu theo thu tu dao nguoc
+            printf ("%s\n", strlwr(b[i]));
 }
 int main( int argc, char *argv[] ){
     int select;
@@ -208,10 +228,11 @@ int main( int argc, char *argv[] ){
                 PrintBST(root);
                 break;
             case 3:
-
+			
                 translate(root);
                 break;
             case 4:
+		tachCau();
                 break;
             case 5:
                 deleteTree(root);
