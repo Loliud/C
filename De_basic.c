@@ -174,6 +174,21 @@ void translate(NODE *root){
         // printf("%s -- %s \n", findWord->word, findWord->meaning);
     }
 }
+NODE *search_2(NODE *root, char *word) 
+{ 
+    if(root == NULL){
+        return root;
+    }
+    if (strcmp(root->word, word) == 0){
+        printf("%s ", root->meaning);
+        return root; 
+    }
+     
+    if (strcmp(root->word, word) < 0){
+        return search_2(root->right, word); 
+    } 
+    return search_2(root->left, word); 
+}
 void deleteTree(NODE *node)  
 { 
     if (node == NULL) return; 
@@ -192,7 +207,7 @@ void showMenu(){
     printf("Chon 4. Dich cau anh viet\n");
     printf("Chon 5. Giai phong cay\n");
 }
-void tachCau(){
+void tachCau(NODE *root){
     int index = 0;
     int i;
     char *a = (char *)malloc(2000*sizeof(char));
@@ -211,6 +226,16 @@ void tachCau(){
     }
     for (i = 0; i < index; i++) //in ra cac tu theo thu tu dao nguoc
             printf ("%s\n", strlwr(b[i]));
+
+    for (i = 0; i < index; i++){
+        NODE *node = search_2(root, b[i]);
+        if(node == NULL){
+            printf("<thieu tu> ");
+        }
+    } //in ra cac tu theo thu tu dao nguoc
+    printf("\n");
+
+
 }
 int main( int argc, char *argv[] ){
     int select;
@@ -232,7 +257,7 @@ int main( int argc, char *argv[] ){
                 translate(root);
                 break;
             case 4:
-		tachCau();
+		    tachCau(root);
                 break;
             case 5:
                 deleteTree(root);
